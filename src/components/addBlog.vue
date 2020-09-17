@@ -18,6 +18,7 @@
         </div>
         <label>Author:</label>
         <select v-model="blog.author">
+            <option value="" disabled selected>Select Author</option>
             <option v-for="author in authors" v-bind:key="author">{{ author }}</option>
         </select>
         <button v-on:click.prevent="post">Add Blog</button>
