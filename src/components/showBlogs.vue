@@ -1,16 +1,19 @@
 <template>
-  <!-- custom directive
-  <div v-theme:column="'narrow'" id="show-blogs"> -->
+  <!-- custom directive globaly register in main.js -->
+  <!-- <div v-theme:column="'narrow'" id="show-blogs"> -->
   <div id="show-blogs">
     <h1>All Blog Articles</h1>
     <input type="text" v-model="search" placeholder="Search Blogs">
     <!-- <div v-for="blog in blogs" v-bind:key="blog" class="single-blog"> -->
     <!-- using computed function to search blogs -->
     <div v-for="blog in filteredBlogs" v-bind:key="blog" class="single-blog">
-        <!-- custom directive
-        <h2 v-rainbow>{{ blog.title }}</h2> -->
-        <!-- filters -->
-        <h2>{{ blog.title | to-uppercase }}</h2>
+        <!-- custom directive globally register  -->
+        <!-- <h2 v-rainbow>{{ blog.title }}</h2> -->
+        <!-- filters Globally register in main.js-->
+        <!-- <h2>{{ blog.title | to-uppercase }}</h2> -->
+        <!-- <article>{{ blog.body | snippet }}</article> -->
+        <!-- locally register filters and custom diretives-->
+        <h2 v-rainbow>{{ blog.title | toUppercase }}</h2>
         <article>{{ blog.body | snippet }}</article>
     </div>
   </div>
@@ -31,11 +34,29 @@ export default {
           this.blogs = data.body.slice(0,10);
       });
   },
+  //for search blogs
   computed: {
     filteredBlogs: function(){
       return this.blogs.filter((blog) => {
         return blog.title.match(this.search);
       });
+    }
+  },
+  // locally register filters
+  filters: {
+    toUppercase(value){
+      return value.toUpperCase();
+    },
+    snippet(value){
+      return value.slice(0, 100) + "...";
+    }
+  },
+  //locally register custom directives
+  directives: {
+    'rainbow': {
+      bind(el, binding, vnode){
+        el.style.color = "#" + Math.random().toString().slice(2,8);
+  }
     }
   }
 }
