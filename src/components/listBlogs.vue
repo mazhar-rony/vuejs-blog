@@ -1,20 +1,9 @@
 <template>
-  <!-- custom directive globaly register in main.js -->
-  <!-- <div v-theme:column="'narrow'" id="show-blogs"> -->
-  <div id="show-blogs">
-    <h1>All Blog Articles</h1>
+ <div id="show-blogs">
+    <h1>List Blog Titles</h1>
     <input type="text" v-model="search" placeholder="Search Blogs">
-    <!-- <div v-for="blog in blogs" v-bind:key="blog" class="single-blog"> -->
-    <!-- using computed function to search blogs -->
     <div v-for="blog in filteredBlogs" v-bind:key="blog" class="single-blog">
-        <!-- custom directive globally register  -->
-        <!-- <h2 v-rainbow>{{ blog.title }}</h2> -->
-        <!-- filters Globally register in main.js-->
-        <!-- <h2>{{ blog.title | to-uppercase }}</h2> -->
-        <!-- <article>{{ blog.body | snippet }}</article> -->
-        <!-- locally register filters and custom diretives-->
         <h2 v-rainbow>{{ blog.title | toUppercase }}</h2>
-        <article>{{ blog.body | snippet }}</article>
     </div>
   </div>
 </template>
@@ -58,10 +47,10 @@ export default {
     'rainbow': {
       bind(el, binding, vnode){
         el.style.color = "#" + Math.random().toString().slice(2,8);
-      }
+        }
     }
   },
-  mixins: [serachMixin]
+  mixins:[serachMixin]
 }
 </script>
 
