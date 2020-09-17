@@ -3,7 +3,10 @@
   <div v-theme:column="'narrow'" id="show-blogs"> -->
   <div id="show-blogs">
     <h1>All Blog Articles</h1>
-    <div v-for="blog in blogs" v-bind:key="blog" class="single-blog">
+    <input type="text" v-model="search" placeholder="Search Blogs">
+    <!-- <div v-for="blog in blogs" v-bind:key="blog" class="single-blog"> -->
+    <!-- using computed function to search blogs -->
+    <div v-for="blog in filteredBlogs" v-bind:key="blog" class="single-blog">
         <!-- custom directive
         <h2 v-rainbow>{{ blog.title }}</h2> -->
         <!-- filters -->
@@ -18,14 +21,22 @@
 export default {
   data () {
     return {
-        blogs: []
+        blogs: [],
+        search: ''
     }
   },
-  created(){
+  created() {
       this.$http.get('https://jsonplaceholder.typicode.com/posts').then(function(data){
           //console.log(data);
           this.blogs = data.body.slice(0,10);
       });
+  },
+  computed: {
+    filteredBlogs: function(){
+      return this.blogs.filter((blog) => {
+        return blog.title.match(this.search);
+      });
+    }
   }
 }
 </script>
@@ -40,5 +51,14 @@ export default {
     margin: 20px 0;
     box-sizing: border-box;
     background: #eee;
+}
+input{
+  width: 100%;
+  height: 30px;
+}
+input[type=text]{
+  font-size: 20px;
+  padding: 0 10px;
+  box-sizing: border-box;
 }
 </style>
