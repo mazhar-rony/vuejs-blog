@@ -8,7 +8,8 @@ Vue.use(VueResource);
 Vue.use(VueRouter);
 
 const router = new VueRouter({
-  routes: Routes
+  routes: Routes,
+  mode: 'history' // default is hash
 });
 
 //Filters globally register
