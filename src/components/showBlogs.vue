@@ -14,7 +14,7 @@
         <!-- <article>{{ blog.body | snippet }}</article> -->
         <!-- locally register filters and custom diretives-->
         <router-link v-bind:to="'/blog/' + blog.id"><h2 v-rainbow>{{ blog.title | toUppercase }}</h2></router-link>
-        <article>{{ blog.body | snippet }}</article>
+        <article>{{ blog.content | snippet }}</article>
     </div>
   </div>
 </template>
@@ -31,9 +31,26 @@ export default {
     }
   },
   created() {
-      this.$http.get('https://jsonplaceholder.typicode.com/posts').then(function(data){
+      // this.$http.get('https://jsonplaceholder.typicode.com/posts').then(function(data){
+      //     //console.log(data);
+      //     this.blogs = data.body.slice(0,10);
+      // });
+      this.$http.get('https://vuejs-blog-2def7.firebaseio.com/posts.json').then(function(data){
+          //console.log(data.json());
+          return data.json();
+      }).then(function(data){
+          
+          var blogsArray = [];
+          
+          for(let key in data){
+            //console.log(key);
+            //console.log(data[key]);
+            data[key].id = key;
+            blogsArray.push(data[key]);
+          }
           //console.log(data);
-          this.blogs = data.body.slice(0,10);
+          //console.log(blogsArray);
+          this.blogs = blogsArray;
       });
   },
   //for search blogs
