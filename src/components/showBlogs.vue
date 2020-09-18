@@ -6,14 +6,14 @@
     <input type="text" v-model="search" placeholder="Search Blogs">
     <!-- <div v-for="blog in blogs" v-bind:key="blog" class="single-blog"> -->
     <!-- using computed function to search blogs -->
-    <div v-for="blog in filteredBlogs" v-bind:key="blog" class="single-blog">
+    <div v-for="blog in filteredBlogs" v-bind:key="blog" class="search-blog">
         <!-- custom directive globally register  -->
         <!-- <h2 v-rainbow>{{ blog.title }}</h2> -->
         <!-- filters Globally register in main.js-->
         <!-- <h2>{{ blog.title | to-uppercase }}</h2> -->
         <!-- <article>{{ blog.body | snippet }}</article> -->
         <!-- locally register filters and custom diretives-->
-        <h2 v-rainbow>{{ blog.title | toUppercase }}</h2>
+        <router-link v-bind:to="'/blog/' + blog.id"><h2 v-rainbow>{{ blog.title | toUppercase }}</h2></router-link>
         <article>{{ blog.body | snippet }}</article>
     </div>
   </div>
@@ -65,12 +65,12 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 #show-blogs{
     max-width: 800px;
     margin: 0 auto;
 }
-.single-blog{
+.search-blog{
     padding: 20px;
     margin: 20px 0;
     box-sizing: border-box;

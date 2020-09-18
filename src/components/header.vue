@@ -15,7 +15,6 @@ export default {
 </script>
 
 <style scoped>
-
 ul{
     list-style-type: none;
     text-align: center;
@@ -40,5 +39,4 @@ nav{
     background: #eee;
     color: #444;
 }
-
 </style>
